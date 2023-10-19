@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de Valores</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Calculadora de Valores</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html.html">Calculadora de Valores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index2.html.html">Calculadora de Taxas do Mercado Pago                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="mt-4">
+            <div class="form-group">
+                <label for="valorProduto">Valor do Produto:</label>
+                <input type="number" id="valorProduto" class="form-control" placeholder="Insira o valor do produto">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="avistaCheckbox">
+                <label class="form-check-label" for="avistaCheckbox">À vista com 10% de desconto</label>
+            </div>
+            <button class="btn btn-primary" onclick="calcularValores()">Calcular</button>
+            <p id="valorProdutoTotal"></p>
+            <p id="trintaPorcentoTotal"></p>
+            <p id="descontoTotal"></p> <!-- Mostrar o valor do desconto -->
+            <p id="valorTotal"></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularValores() {
+            var valorProduto = parseFloat(document.getElementById("valorProduto").value);
+            var avistaCheckbox = document.getElementById("avistaCheckbox");
+
+            if (!isNaN(valorProduto)) {
+                var valorProdutoTotal = valorProduto + valorProduto; // Valor do produto + 100% do produto
+                var trintaPorcentoTotal = 0.3 * valorProdutoTotal; // 30% do valor total
+                var valorTotal = valorProdutoTotal + trintaPorcentoTotal; // Soma total
+
+                if (avistaCheckbox.checked) {
+                    // Aplica 10% de desconto se a opção "À vista" estiver marcada
+                    var desconto = 0.1 * valorTotal;
+                    valorTotal -= desconto;
+                    document.getElementById("descontoTotal").innerHTML = "Desconto (10%): R$ " + desconto.toFixed(2);
+                } else {
+                    document.getElementById("descontoTotal").innerHTML = ""; // Limpa o valor do desconto
+                }
+
+                document.getElementById("valorProdutoTotal").innerHTML = "Valor do Produto + 100%: R$ " + valorProdutoTotal.toFixed(2);
+                document.getElementById("trintaPorcentoTotal").innerHTML = "30% do Valor Total: R$ " + trintaPorcentoTotal.toFixed(2);
+                document.getElementById("valorTotal").innerHTML = "Valor Total: R$ " + valorTotal.toFixed(2);
+            } else {
+                document.getElementById("valorProdutoTotal").innerHTML = "";
+                document.getElementById("trintaPorcentoTotal").innerHTML = "";
+                document.getElementById("descontoTotal").innerHTML = "";
+                document.getElementById("valorTotal").innerHTML = "Por favor, insira um valor válido.";
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
